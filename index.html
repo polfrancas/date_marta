@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#f7e9e8" />
+  <title>A little invitation ❤️</title>
+  <style>
+    :root {
+      --ink: #3c2b2e;
+      --muted: #80686d;
+      --rose: #a94f5f;
+      --rose-dark: #873847;
+      --cream: #fffaf7;
+      --blush: #f7e9e8;
+      --shadow: 0 24px 70px rgba(77, 39, 48, .18);
+    }
+    * { box-sizing: border-box; }
+    html, body { min-height: 100%; margin: 0; }
+    body {
+      min-height: 100svh;
+      overflow: hidden;
+      font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 15% 20%, rgba(255,255,255,.95), transparent 28%),
+        radial-gradient(circle at 85% 80%, rgba(222,171,177,.45), transparent 30%),
+        linear-gradient(145deg, #fff8f5 0%, var(--blush) 50%, #efd9d8 100%);
+      display: grid;
+      place-items: center;
+      padding: max(20px, env(safe-area-inset-top)) max(18px, env(safe-area-inset-right))
+               max(20px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left));
+    }
+    .sparkle {
+      position: fixed;
+      pointer-events: none;
+      opacity: .35;
+      font-size: clamp(18px, 4vw, 30px);
+      animation: float 5s ease-in-out infinite;
+    }
+    .s1 { left: 8%; top: 12%; }
+    .s2 { right: 10%; top: 18%; animation-delay: 1.3s; }
+    .s3 { left: 13%; bottom: 14%; animation-delay: 2.1s; }
+    .s4 { right: 12%; bottom: 12%; animation-delay: .6s; }
+    @keyframes float { 50% { transform: translateY(-10px) rotate(7deg); opacity: .65; } }
+
+    .card {
+      width: min(92vw, 560px);
+      min-height: min(620px, 84svh);
+      background: rgba(255, 250, 247, .88);
+      border: 1px solid rgba(255,255,255,.75);
+      border-radius: 32px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      padding: clamp(28px, 6vw, 54px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      isolation: isolate;
+    }
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: .22em;
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--rose);
+      margin-bottom: 22px;
+    }
+    .heart {
+      width: 76px; height: 76px;
+      display: grid; place-items: center;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 12px 35px rgba(169,79,95,.16);
+      font-size: 34px;
+      margin-bottom: 22px;
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+    @keyframes pulse { 50% { transform: scale(1.06); } }
+    h1 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 500;
+      font-size: clamp(36px, 8vw, 58px);
+      line-height: 1.03;
+      letter-spacing: -.035em;
+      margin: 0 0 18px;
+    }
+    p {
+      margin: 0;
+      color: var(--muted);
+      font-size: clamp(16px, 4vw, 19px);
+      line-height: 1.65;
+      max-width: 420px;
+    }
+    .question {
+      margin-top: 27px;
+      font-family: Georgia, "Times New Roman", serif;
+      color: var(--ink);
+      font-size: clamp(20px, 5vw, 25px);
+    }
+    .buttons {
+      width: 100%;
+      min-height: 115px;
+      margin-top: 24px;
+      position: relative;
+    }
+    button {
+      border: 0;
+      border-radius: 999px;
+      padding: 16px 24px;
+      min-width: 135px;
+      min-height: 54px;
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+    #yes {
+      position: absolute;
+      left: calc(50% - 145px);
+      top: 12px;
+      background: var(--rose);
+      color: white;
+      box-shadow: 0 10px 25px rgba(169,79,95,.28);
+    }
+    #yes:hover { transform: translateY(-2px) scale(1.03); background: var(--rose-dark); }
+    #no {
+      position: absolute;
+      left: calc(50% + 10px);
+      top: 12px;
+      background: #fff;
+      color: var(--ink);
+      border: 1px solid rgba(60,43,46,.10);
+      box-shadow: 0 8px 20px rgba(60,43,46,.08);
+      transition: left .18s ease, top .18s ease, transform .15s ease;
+    }
+    .tiny {
+      margin-top: 6px;
+      min-height: 24px;
+      font-size: 13px;
+      color: var(--rose);
+      font-weight: 700;
+    }
+    .success { display: none; }
+    .success.show {
+      display: flex;
+      animation: appear .65s cubic-bezier(.2,.8,.2,1) both;
+    }
+    .invite.hide { display: none; }
+    @keyframes appear {
+      from { opacity: 0; transform: translateY(12px) scale(.97); }
+      to { opacity: 1; transform: none; }
+    }
+    .date-pill {
+      margin-top: 28px;
+      background: white;
+      border: 1px solid rgba(169,79,95,.12);
+      border-radius: 18px;
+      padding: 15px 20px;
+      font-weight: 800;
+      color: var(--rose-dark);
+      box-shadow: 0 10px 28px rgba(77,39,48,.08);
+    }
+    .signature {
+      margin-top: 30px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-style: italic;
+      color: var(--ink);
+    }
+    .confetti {
+      position: fixed;
+      top: -20px;
+      pointer-events: none;
+      z-index: 20;
+      animation: fall 3.4s linear forwards;
+    }
+    @keyframes fall {
+      to { transform: translateY(110vh) rotate(720deg); opacity: .1; }
+    }
+    @media (max-width: 520px) {
+      .card { min-height: 76svh; border-radius: 26px; }
+      .buttons { min-height: 150px; }
+      #yes { left: 50%; transform: translateX(-50%); top: 4px; }
+      #yes:hover { transform: translateX(-50%) translateY(-2px) scale(1.03); }
+      #no { left: 50%; transform: translateX(-50%); top: 72px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <span class="sparkle s1">♡</span><span class="sparkle s2">✦</span>
+  <span class="sparkle s3">✦</span><span class="sparkle s4">♡</span>
+
+  <main class="card invite" id="invite">
+    <div class="eyebrow">A little invitation</div>
+    <div class="heart">♥</div>
+    <h1>Marta, you have a date<br>this Friday night.</h1>
+    <p>I’ve planned something special for us.<br>You only need to bring yourself.</p>
+    <div class="question">Will you go on a date with me? ❤️</div>
+
+    <div class="buttons" id="buttonArea">
+      <button id="yes" type="button">YES ❤️</button>
+      <button id="no" type="button">NO</button>
+    </div>
+    <div class="tiny" id="tease" aria-live="polite"></div>
+  </main>
+
+  <main class="card success" id="success">
+    <div class="eyebrow">Officially confirmed</div>
+    <div class="heart">♥</div>
+    <h1>It’s a date. ❤️</h1>
+    <p>Friday night.<br>Dress nice. I’ll take care of the rest.</p>
+    <div class="date-pill">Friday • 2 October • Evening</div>
+    <p class="signature">Sincerely,<br><strong>Pol</strong></p>
+  </main>
+
+  <script>
+    const noBtn = document.getElementById('no');
+    const yesBtn = document.getElementById('yes');
+    const area = document.getElementById('buttonArea');
+    const invite = document.getElementById('invite');
+    const success = document.getElementById('success');
+    const tease = document.getElementById('tease');
+
+    let escapes = 0;
+    const messages = [
+      "Nice try 😌",
+      "That button seems a little shy…",
+      "Are you sure? 👀",
+      "I think we both know the answer ❤️",
+      "There’s a much better button right there ↑"
+    ];
+
+    function moveNo() {
+      escapes++;
+      const areaRect = area.getBoundingClientRect();
+      const btnRect = noBtn.getBoundingClientRect();
+      const maxX = Math.max(0, areaRect.width - btnRect.width);
+      const maxY = Math.max(0, areaRect.height - btnRect.height);
+
+      noBtn.style.transform = 'none';
+      noBtn.style.left = Math.random() * maxX + 'px';
+      noBtn.style.top = Math.random() * maxY + 'px';
+      tease.textContent = messages[Math.min(escapes - 1, messages.length - 1)];
+    }
+
+    // Desktop: it escapes before the pointer reaches it.
+    noBtn.addEventListener('mouseenter', moveNo);
+
+    // Mobile: touching/tapping it makes it escape.
+    noBtn.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      moveNo();
+    }, { passive: false });
+
+    noBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      moveNo();
+    });
+
+    yesBtn.addEventListener('click', () => {
+      invite.classList.add('hide');
+      success.classList.add('show');
+      celebrate();
+    });
+
+    function celebrate() {
+      const symbols = ['♥','♡','✦','♥','♡'];
+      for (let i = 0; i < 32; i++) {
+        const piece = document.createElement('span');
+        piece.className = 'confetti';
+        piece.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        piece.style.left = Math.random() * 100 + 'vw';
+        piece.style.fontSize = (14 + Math.random() * 18) + 'px';
+        piece.style.animationDelay = (Math.random() * .8) + 's';
+        piece.style.animationDuration = (2.7 + Math.random() * 1.7) + 's';
+        piece.style.color = Math.random() > .5 ? '#a94f5f' : '#80686d';
+        document.body.appendChild(piece);
+        setTimeout(() => piece.remove(), 5000);
+      }
+    }
+
+    // Keep the runaway button in a sensible place after rotation/resizing.
+    window.addEventListener('resize', () => {
+      if (escapes > 0) moveNo();
+    });
+  </script>
+</body>
+</html>
